@@ -19,6 +19,8 @@ public class CashRegister implements ProductObserver {
 
     @Override
     public void handleSell(double amount) {
-        add(amount);
+        DecimalFormat df =  new DecimalFormat("###,##0.00");
+        add(Double.parseDouble(df.format(amount)));
     }
+
 }
