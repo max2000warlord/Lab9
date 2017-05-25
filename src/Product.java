@@ -5,7 +5,7 @@ public class Product {
     private LinkedList<ProductObserver> observers = new LinkedList<ProductObserver>();
     private final String name;
     private IntegerProperty stock = new SimpleIntegerProperty();
-    private final double price;
+    private final DoubleProperty price = new SimpleDoubleProperty();
     private IntegerProperty sold = new SimpleIntegerProperty();
     private IntegerProperty left = new SimpleIntegerProperty();
     private DoubleProperty cash = new SimpleDoubleProperty();
@@ -13,15 +13,14 @@ public class Product {
     public Product(String name, int stock, double price) {
         this.name = name;
         this.stock.set(stock);
-        this.price = price;
-        sold.set(0);
+        this.price.set(price);
         left.bind(sold.subtract(stock).multiply(-1));
     }
 
     public final String getName() { return name; }
     public final int getStock() { return stock.get(); }
     public ReadOnlyIntegerProperty stockProperty() { return stock; }
-    public final double getPrice() { return price;}
+    public final double getPrice() { return price.get();}
     public final int getSold() { return sold.get(); }
     public ReadOnlyIntegerProperty soldProperty() { return sold; }
     public double getCash() { return cash.get(); }
@@ -30,11 +29,10 @@ public class Product {
     
     public void sell(int n) {
         stock.set(getStock() - n);
-        double money = n * getPrice();
-        cash.set(getCash() + money);
+        cash.bind(price.multiply(n));
         sold.set(getSold() + n);
         for (ProductObserver observer : observers)
-            observer.handleSell(money);
+            observer.handleSell(getCash());
     }
    
     public void restock(int n) {
