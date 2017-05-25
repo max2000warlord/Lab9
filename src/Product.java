@@ -11,7 +11,7 @@ public class Product {
     private DoubleProperty cash = new SimpleDoubleProperty();
 
     public Product(String name, int stock, double price) {
-        this.name = name;
+        this.name.set(name);
         this.stock.set(stock);
         this.price.set(price);
         left.bind(sold.subtract(stock).multiply(-1));
