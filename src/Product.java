@@ -26,7 +26,7 @@ public class Product {
     public final int getSold() { return sold.get(); }
     public ReadOnlyIntegerProperty soldProperty() { return sold; }
     public double getCash() { return cash.get(); }
-    
+    public ReadOnlyDoubleProperty cashProperty() { return cash; }
     public final int getLeft() { return left.get(); }
     public ReadOnlyIntegerProperty leftProperty() { return left; }
     
