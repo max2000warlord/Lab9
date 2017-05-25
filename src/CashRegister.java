@@ -14,7 +14,7 @@ public class CashRegister implements ProductObserver {
         cash.set(money);
     }
     
-    public double getCashRegister(){
+    public double getCash(){
     return cash.get();
     }
 

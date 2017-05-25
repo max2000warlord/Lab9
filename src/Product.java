@@ -8,31 +8,30 @@ public class Product {
     private final double price;
     private IntegerProperty sold = new SimpleIntegerProperty();
     private IntegerProperty left = new SimpleIntegerProperty();
-    private DoubleProperty cash = new SimpleDoubleProperty();
+    private double cash;
 
     public Product(String name, int stock, double price) {
         this.name = name;
         this.stock.set(stock);
         this.price = price;
         sold.set(0);
-        cash.bind(sold.multiply(price));
         left.bind(sold.subtract(stock).multiply(-1));
     }
-    
+
     public final String getName() { return name; }
     public final int getStock() { return stock.get(); }
     public ReadOnlyIntegerProperty stockProperty() { return stock; }
     public final double getPrice() { return price;}
     public final int getSold() { return sold.get(); }
     public ReadOnlyIntegerProperty soldProperty() { return sold; }
-    public final double getCash() { return cash.get(); }
-    public ReadOnlyDoubleProperty incomeProperty() { return cash; }
+    public double getCash() { return cash; }
     public final int getLeft() { return left.get(); }
     public ReadOnlyIntegerProperty leftProperty() { return left; }
     
     public void sell(int n) {
         stock.set(getStock() - n);
         double money = n * price;
+        cash = cash + money;
         sold.set(getSold() + n);
         for (ProductObserver observer : observers)
             observer.handleSell(money);
