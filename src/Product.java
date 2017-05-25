@@ -17,7 +17,7 @@ public class Product {
         sold.set(0);
         left.bind(sold.subtract(stock).multiply(-1));
     }
-
+    //TEST 123
     public final String getName() { return name; }
     public final int getStock() { return stock.get(); }
     public ReadOnlyIntegerProperty stockProperty() { return stock; }
