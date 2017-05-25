@@ -2,13 +2,12 @@ import java.text.*;
 import javafx.beans.property.*;
 public class CashRegister implements ProductObserver {
     private DoubleProperty cash = new SimpleDoubleProperty();
-    private DoubleProperty income = new SimpleDoubleProperty();
 
     public CashRegister() {
         cash.set(0);
     }
     
-    public ReadOnlyDoubleProperty cashProperty() { return income; }
+    public ReadOnlyDoubleProperty cashProperty() { return cash; }
 
     public void add(double money) {
         cash.set(money);
