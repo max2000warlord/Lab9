@@ -14,6 +14,7 @@ public class Product {
         this.name.set(name);
         this.stock.set(stock);
         this.price.set(price);
+        cash.bind(sold.multiply(price));
         left.bind(sold.subtract(stock).multiply(-1));
     }
 
@@ -32,7 +33,6 @@ public class Product {
     
     public void sell(int n) {
         stock.set(getStock() - n);
-        cash.add(price.multiply(n));
         sold.set(getSold() + n);
         for (ProductObserver observer : observers)
             observer.handleSell(getCash());
